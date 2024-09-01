@@ -2,13 +2,13 @@
 const posts = [
     {
         id: 1,
-        title: "My First Blog Post",
-        content: "This is the content of my first blog post. I'm excited to start blogging!"
+        title: "Cats",
+        content: "Both cats are fine and dandy!"
     },
     {
         id: 2,
-        title: "Another Day, Another Post",
-        content: "Here's some more content for my blog. I'm getting the hang of this!"
+        title: "Jack and Eva",
+        content: "Usual ackes and pains!"
     }
 ];
 
