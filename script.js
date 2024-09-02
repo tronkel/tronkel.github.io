@@ -1,4 +1,4 @@
-// Initialize posts from localStorage or with default posts
+// Load posts from localStorage or initialize with default posts
 let posts = JSON.parse(localStorage.getItem('posts')) || [
     {
         id: 1,
@@ -12,7 +12,7 @@ let posts = JSON.parse(localStorage.getItem('posts')) || [
     }
 ];
 
-// Password for post creation (you can change this)
+// Password for post creation
 const ADMIN_PASSWORD = "secret123";
 
 // Function to save posts to localStorage
@@ -23,17 +23,22 @@ function savePostsToLocalStorage() {
 // Function to load posts on the homepage
 function loadPosts() {
     const postsContainer = document.getElementById('posts');
-    postsContainer.innerHTML = ''; // Clear previous content
-    posts.forEach(post => {
-        const postElement = document.createElement('div');
-        postElement.className = 'post';
-        postElement.innerHTML = `
-            <h3>${post.title}</h3>
-            <p>${post.content.substring(0, 100)}...</p>
-            <a href="post.html?id=${post.id}">Read More</a>
-        `;
-        postsContainer.appendChild(postElement);
-    });
+    postsContainer.innerHTML = ''; // Clear any existing content
+
+    if (posts.length === 0) {
+        postsContainer.innerHTML = '<p>No posts available.</p>';
+    } else {
+        posts.forEach(post => {
+            const postElement = document.createElement('div');
+            postElement.className = 'post';
+            postElement.innerHTML = `
+                <h3>${post.title}</h3>
+                <p>${post.content.substring(0, 100)}...</p>
+                <a href="post.html?id=${post.id}">Read More</a>
+            `;
+            postsContainer.appendChild(postElement);
+        });
+    }
 }
 
 // Function to load a single post on the post page
@@ -45,6 +50,9 @@ function loadPost() {
     if (post) {
         document.getElementById('post-title').innerText = post.title;
         document.getElementById('post-content').innerText = post.content;
+    } else {
+        document.getElementById('post-title').innerText = 'Post Not Found';
+        document.getElementById('post-content').innerText = '';
     }
 }
 
@@ -55,7 +63,6 @@ function createPost(event) {
     const content = document.getElementById('content').value;
     const password = document.getElementById('password').value;
 
-    // Check if the entered password matches the admin password
     if (password === ADMIN_PASSWORD) {
         const newPost = {
             id: posts.length + 1,
@@ -63,15 +70,15 @@ function createPost(event) {
             content: content
         };
         posts.push(newPost);
-        savePostsToLocalStorage(); // Save the updated posts array to localStorage
+        savePostsToLocalStorage(); // Save posts to localStorage
         alert("Post created successfully!");
-        window.location.href = 'index.html'; // Redirect to home page after creation
+        window.location.href = 'index.html'; // Redirect to home page
     } else {
         alert("Incorrect password. Please try again.");
     }
 }
 
-// Call the appropriate function based on the page
+// Initialize the correct function based on the current page
 if (document.getElementById('posts')) {
     loadPosts();
 } else if (document.getElementById('post-title')) {
