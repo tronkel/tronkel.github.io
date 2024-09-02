@@ -1,10 +1,93 @@
-form {
-    max-width: 600px;
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+nav {
+    margin: 20px 0;
+    text-align: center;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    padding: 10px 15px;
+    background-color: #555;
+    border-radius: 4px;
+}
+
+nav a:hover {
+    background-color: #666;
+}
+
+main {
+    width: 80%;
     margin: 0 auto;
-    padding: 20px;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+}
+
+.post {
     background-color: #fff;
+    margin-bottom: 20px;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.post h3 {
+    margin-top: 0;
+}
+
+.post p {
+    margin-bottom: 0;
+}
+
+.post a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.post a:hover {
+    color: #007BFF;
+}
+
+/* Form styles */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
 }
 
 form div {
@@ -13,15 +96,15 @@ form div {
 
 form label {
     display: block;
-    margin-bottom: 5px;
     font-weight: bold;
+    margin-bottom: 5px;
 }
 
 form input[type="text"],
-form textarea,
-form input[type="password"] {
+form input[type="password"],
+form textarea {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -30,8 +113,8 @@ form input[type="password"] {
 
 form button {
     background-color: #333;
-    color: white;
-    padding: 10px 15px;
+    color: #fff;
+    padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -39,5 +122,21 @@ form button {
 
 form button:hover {
     background-color: #555;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    main {
+        width: 90%;
+    }
+
+    header h1 {
+        font-size: 2em;
+    }
+
+    form {
+        width: 90%;
+        padding: 15px;
+    }
 }
 
