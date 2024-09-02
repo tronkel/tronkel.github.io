@@ -1,5 +1,5 @@
-// Example blog posts (initial posts)
-let posts = [
+// Initialize posts from localStorage or with default posts
+let posts = JSON.parse(localStorage.getItem('posts')) || [
     {
         id: 1,
         title: "My First Blog Post",
@@ -15,9 +15,15 @@ let posts = [
 // Password for post creation (you can change this)
 const ADMIN_PASSWORD = "secret123";
 
+// Function to save posts to localStorage
+function savePostsToLocalStorage() {
+    localStorage.setItem('posts', JSON.stringify(posts));
+}
+
 // Function to load posts on the homepage
 function loadPosts() {
     const postsContainer = document.getElementById('posts');
+    postsContainer.innerHTML = ''; // Clear previous content
     posts.forEach(post => {
         const postElement = document.createElement('div');
         postElement.className = 'post';
@@ -57,6 +63,7 @@ function createPost(event) {
             content: content
         };
         posts.push(newPost);
+        savePostsToLocalStorage(); // Save the updated posts array to localStorage
         alert("Post created successfully!");
         window.location.href = 'index.html'; // Redirect to home page after creation
     } else {
