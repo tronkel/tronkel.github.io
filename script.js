@@ -1,16 +1,19 @@
-// Example blog posts
-const posts = [
+// Example blog posts (initial posts)
+let posts = [
     {
         id: 1,
-        title: "Cats",
-        content: "Both cats are fine and dandy!"
+        title: "My First Blog Post",
+        content: "This is the content of my first blog post. I'm excited to start blogging!"
     },
     {
         id: 2,
-        title: "Jack and Eva",
-        content: "Usual ackes and pains!"
+        title: "Another Day, Another Post",
+        content: "Here's some more content for my blog. I'm getting the hang of this!"
     }
 ];
+
+// Password for post creation (you can change this)
+const ADMIN_PASSWORD = "secret123";
 
 // Function to load posts on the homepage
 function loadPosts() {
@@ -39,10 +42,34 @@ function loadPost() {
     }
 }
 
+// Function to handle post creation
+function createPost(event) {
+    event.preventDefault();
+    const title = document.getElementById('title').value;
+    const content = document.getElementById('content').value;
+    const password = document.getElementById('password').value;
+
+    // Check if the entered password matches the admin password
+    if (password === ADMIN_PASSWORD) {
+        const newPost = {
+            id: posts.length + 1,
+            title: title,
+            content: content
+        };
+        posts.push(newPost);
+        alert("Post created successfully!");
+        window.location.href = 'index.html'; // Redirect to home page after creation
+    } else {
+        alert("Incorrect password. Please try again.");
+    }
+}
+
 // Call the appropriate function based on the page
 if (document.getElementById('posts')) {
     loadPosts();
 } else if (document.getElementById('post-title')) {
     loadPost();
+} else if (document.getElementById('postForm')) {
+    document.getElementById('postForm').addEventListener('submit', createPost);
 }
 
