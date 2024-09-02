@@ -12,7 +12,7 @@ let posts = JSON.parse(localStorage.getItem('posts')) || [
     }
 ];
 
-// Password for post creation
+// Password for post creation and deletion
 const ADMIN_PASSWORD = "secret123";
 
 // Function to save posts to localStorage
@@ -35,6 +35,7 @@ function loadPosts() {
                 <h3>${post.title}</h3>
                 <p>${post.content.substring(0, 100)}...</p>
                 <a href="post.html?id=${post.id}">Read More</a>
+                <button onclick="deletePost(${post.id})" class="delete-button">Delete</button>
             `;
             postsContainer.appendChild(postElement);
         });
@@ -65,7 +66,7 @@ function createPost(event) {
 
     if (password === ADMIN_PASSWORD) {
         const newPost = {
-            id: posts.length + 1,
+            id: posts.length ? posts[posts.length - 1].id + 1 : 1,
             title: title,
             content: content
         };
@@ -75,6 +76,23 @@ function createPost(event) {
         window.location.href = 'index.html'; // Redirect to home page
     } else {
         alert("Incorrect password. Please try again.");
+    }
+}
+
+// Function to handle post deletion with password protection
+function deletePost(id) {
+    const password = prompt("Please enter the password to delete this post:");
+
+    if (password === ADMIN_PASSWORD) {
+        // Confirm deletion
+        if (confirm("Are you sure you want to delete this post?")) {
+            posts = posts.filter(post => post.id !== id);
+            savePostsToLocalStorage(); // Save the updated posts array to localStorage
+            loadPosts(); // Reload posts to update the DOM
+            alert("Post deleted successfully.");
+        }
+    } else {
+        alert("Incorrect password. Post was not deleted.");
     }
 }
 
